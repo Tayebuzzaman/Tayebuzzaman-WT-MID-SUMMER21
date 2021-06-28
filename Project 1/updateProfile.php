@@ -37,32 +37,30 @@
 		else{
 			$updatename=$_POST["updatename"];
 		}
-		if(empty($_POST["updateusername"])){
+		if(empty($_POST["updateuname"])){
 			$err_updateuname="Username Required";
 			$err = true;
 		}
-		else if(strlen($_POST["updateusername"])<=6){
+		else if(strlen($_POST["updateuname"])<=6){
 			$err_updateuname="Must be greater than 6";
 			$err = true;
 		}
-		else if(strpos($_POST["updateusername"]," ")){
-				$err_updateuname=" White space is not allowed in Username";
-		}
+		
 		else{
-			$updateuname=$_POST["updateusername"];
+			$updateuname=$_POST["updateuname"];
 		}
-		if(empty($_POST["updatepassword"])){
+		if(empty($_POST["updatepass"])){
 			$err_updatepass="Password Required";
 			$err = true;
 		}
-		else if(strlen($_POST["updatepassword"])<8){
+		else if(strlen($_POST["updatepass"])<8){
 			$err_updatepass="Password should have minimum 8 character";
 		}
-		else if ((!strpos($_POST["updatepassword"],"#"))||(!strpos($_POST["updatepassword"],"?")))	{
+		else if ((!strpos($_POST["updatepass"],"#"))||(!strpos($_POST["updatepass"],"?")))	{
 			$err_updatepass="Password should have minimum 1 character '?'or'#'";
 		}
 		else{
-			$updatepass = $_POST["password"];
+			$updatepass = $_POST["updatepass"];
 		}
 		if(!strpos($_POST["updateemail"],"@")){
 			if(!strpos($_POST["updateemail"],"."))
@@ -116,6 +114,8 @@
 		
 		if(!$err){
 			echo "updateName: ".htmlspecialchars($_POST["updatename"])."<br>";
+			echo "updateUserName: ".htmlspecialchars($_POST["updateuname"])."<br>";
+			echo "updatePass: ".htmlspecialchars($_POST["updatepass"])."<br>";
 			echo "updateEmail: ".htmlspecialchars($_POST["updateemail"])."<br>";
 			echo "updateCode: ".htmlspecialchars($_POST["updatecode"])."<br>";
 			echo "updateNumber: ".htmlspecialchars($_POST["updatenumber"])."<br>";
@@ -142,7 +142,7 @@
 				</tr>
 				<tr>
 					<td align="right">Update User Name </td>
-					<td><input type="text" name="updateusername" value="<?php echo $updateuname;?>" placeholder="Update Username">
+					<td><input type="text" name="updateuname" value="<?php echo $updateuname;?>" placeholder="Update Username">
 					<span><?php echo $err_updateuname;?></span></td>
 				</tr>
 				
@@ -153,7 +153,7 @@
 				</tr>
 				<tr>
 					<td align="right">Update Password: </td>
-					<td><input type="password" name="updatepassword" value="<?php echo $updatepass;?>" placeholder="Update Password">
+					<td><input type="password" name="updatepass" value="<?php echo $updatepass;?>" placeholder="Update Password">
 					<span><?php echo $err_updatepass;?></span></td>
 				</tr>
 				<tr>

@@ -3,10 +3,6 @@
 	$err_name="";
 	$uname="";
 	$err_uname="";
-	$pass="";
-	$err_pass="";
-	$cpass="";
-	$err_cpass="";
 	$email="";
 	$err_email="";
 	$code="";
@@ -29,26 +25,18 @@
 	$err_month="";
 	$year="";
 	$err_year="";
-	$nid=[];
+	$nid="";
 	$err_nid="";
 	$Nationalty="";
 	$err_Nationalty="";
-	$shift=[];
+	$shift="";
 	$err_shift="";
 	
 	
 	$err=false;
 	
 
-	function nidExist($nid){
-		global $nid;
-		foreach($nid as $h){
-			if($h == $nid){
-				return true;
-			}
-		}
-		return false;
-	}
+	
 	
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
 		
@@ -59,44 +47,19 @@
 		else{
 			$name=$_POST["name"];
 		}
-		if(empty($_POST["username"])){
+		if(empty($_POST["uname"])){
 			$err_uname="Username Required";
 			$err = true;
 		}
-		else if(strlen($_POST["username"])<=6){
+		else if(strlen($_POST["uname"])<=6){
 			$err_uname="Must be greater than 6";
 			$err = true;
 		}
-		else if(strpos($_POST["username"]," ")){
-				$err_uname=" White space is not allowed in Username";
-		}
+		
 		else{
-			$uname=$_POST["username"];
+			$uname=$_POST["uname"];
 		}
-		if(empty($_POST["password"])){
-			$err_pass="Password Required";
-			$err = true;
-		}
-		else if(strlen($_POST["password"])<8){
-			$err_pass="Password should have minimum 8 character";
-		}
-		else if ((!strpos($_POST["password"],"#"))||(!strpos($_POST["password"],"?")))	{
-			$err_pass="Password should have minimum 1 character '?'or'#'";
-		}
-		else{
-			$pass = $_POST["password"];
-		}
-		if(empty($_POST["password"])){
-			$err_cpass="Re-Type Password";
-			$err = true;
-		}
-		else if($_POST["cpassword"]!=$_POST["password"]){
-			$err_cpass="Password Do not Match";
-			$err = true;
-		}
-		else {
-			$cpass = $_POST["cpassword"];
-		}
+		
 		if(!strpos($_POST["email"],"@")){
 			if(!strpos($_POST["email"],"."))
 			$err_email="Email should contain '@' and '.' sequentially";
@@ -132,6 +95,14 @@
 		else{
 			$city = $_POST["city"];
 		}
+		
+		if(empty($_POST["year"])){
+			$err_year="year Required";
+			$err = true;
+		}
+		else{
+			$year = $_POST["year"];
+		}
 		if(empty($_POST["state"])){
 			$err_state="State Required";
 			$err = true;
@@ -146,38 +117,22 @@
 		else{
 			$zip = $_POST["zip"];
 		}
-		if (!isset($_POST["day"])){
-				$err_day="Day must be selected";
-		}
-		else{
-			$day=$_POST["day"];
-		}
-		if (!isset($_POST["month"])){
-			$err_month="Month must be selected";
-		}
-		else{
-			$month=$_POST["month"];
-		}
-		if (!isset($_POST["year"])){
-			$err_year="Year must be selected";
-		}
-		else{
-			$year=$_POST["year"];
-		}
-		if(!isset($_POST["gender"])){
-			$err_gender="Gender Required";
-			$err = true;
-		}
-		else{
-			$gender = $_POST["gender"];
-		}
-		if(!isset($_POST["NID"])){
+		
+		if(empty($_POST["nid"])){
 			$err_nid="NID Required";
 			$err = true;
 		}
 		else{
 			$nid = $_POST["nid"];
 		}
+		if(empty($_POST["shift"])){
+			$err_shift="Shift Required";
+			$err = true;
+		}
+		else{
+			$shift = $_POST["shift"];
+		}
+		
 		if(empty($_POST["Nationalty"])){
 			$err_Nationalty="Nationalty Required";
 			$err = true;
@@ -187,7 +142,7 @@
 		}
 		if(!$err){
 			echo "Name: ".htmlspecialchars($_POST["name"])."<br>";
-			echo "Staff User Id: ".htmlspecialchars($_POST["Staff User Id"])."<br>";
+			echo "Uname: ".htmlspecialchars($_POST["uname"])."<br>";
 			echo "Email: ".htmlspecialchars($_POST["email"])."<br>";
 			echo "Code: ".htmlspecialchars($_POST["code"])."<br>";
 			echo "Number: ".htmlspecialchars($_POST["number"])."<br>";
@@ -199,13 +154,8 @@
 			echo "Month: ".htmlspecialchars($_POST["month"])."<br>";
 			echo "Year: ".htmlspecialchars($_POST["year"])."<br>";
 			echo "Gender: ".htmlspecialchars($_POST["gender"])."<br>";
-			$arr = $_POST["nid"];
-			
-			foreach($arr as $e){
-				echo "$e <br>";
-			}
-			
-			echo "NationaltyNationalty: ".htmlspecialchars($_POST["Nationalty"])."<br>";
+			echo "Nid: ".htmlspecialchars($_POST["nid"])."<br>";
+			echo "Nationalty: ".htmlspecialchars($_POST["Nationalty"])."<br>";
 		}
 	}
 ?>
@@ -224,7 +174,7 @@
 				</tr>
 				<tr>
 					<td align="right">Staff User Id: </td>
-					<td><input type="text" name="username" value="<?php echo $uname;?>" placeholder="Username"></td>
+					<td><input type="text" name="uname" value="<?php echo $uname;?>" placeholder="Username"></td>
 					<td><span><?php echo $err_uname;?></span></td>
 				</tr>
 				
@@ -289,9 +239,10 @@
 						<td><span><?php echo $err_gender;?></span></td>
 				</tr>
 				<tr>
-					<td align="Right">NID NO: </td>
+					<td align="Right">Nid: </td>
 					<td>
-						<input type="text" name="nid" value=" "
+						<input type="text" name="nid" value="<?php echo $nid;?>"
+						
 					</td>
 					<td><span><?php echo $err_nid;?></span></td>
 				</tr>
@@ -306,11 +257,11 @@
 				<tr>
 					<td align="Right">Shift: </td>
 					<td>
-						<input type="text" name="Shift" value=" "
+						<input type="text" name="shift" value="<?php echo $shift;?>"
 						
 					</td>
-					
-				<tr>
+					<td><span><?php echo $err_shift;?></span></td>
+				</tr>
 					<td align="center" colspan="2"><input type="submit" name="submit"value="ADD"></td>
 				</tr>
 			</form>	

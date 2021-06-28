@@ -29,7 +29,7 @@
 	$err_month="";
 	$year="";
 	$err_year="";
-	$nid=[];
+	$nid="";
 	$err_nid="";
 	$Nationalty="";
 	$err_Nationalty="";
@@ -37,15 +37,6 @@
 	$err=false;
 	
 
-	function nidExist($nid){
-		global $nid;
-		foreach($nid as $h){
-			if($h == $nid){
-				return true;
-			}
-		}
-		return false;
-	}
 	
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
 		
@@ -168,7 +159,7 @@
 		else{
 			$gender = $_POST["gender"];
 		}
-		if(!isset($_POST["NID"])){
+		if(!isset($_POST["nid"])){
 			$err_nid="NID Required";
 			$err = true;
 		}
@@ -198,13 +189,8 @@
 			echo "Month: ".htmlspecialchars($_POST["month"])."<br>";
 			echo "Year: ".htmlspecialchars($_POST["year"])."<br>";
 			echo "Gender: ".htmlspecialchars($_POST["gender"])."<br>";
-			$arr = $_POST["nid"];
-			
-			foreach($arr as $e){
-				echo "$e <br>";
-			}
-			
-			echo "NationaltyNationalty: ".htmlspecialchars($_POST["Nationalty"])."<br>";
+			echo "Nid: ".htmlspecialchars($_POST["nid"])."<br>";
+			echo "Nationalty: ".htmlspecialchars($_POST["Nationalty"])."<br>";
 		}
 	}
 ?>
@@ -299,7 +285,7 @@
 				<tr>
 					<td align="Right">Give NID NO: </td>
 					<td>
-						<input type="text" name="nid" value=" "
+						<input type="text" name="nid" value=" "<?php echo $nid;?>"
 					</td>
 					<td><span><?php echo $err_nid;?></span></td>
 				</tr>
