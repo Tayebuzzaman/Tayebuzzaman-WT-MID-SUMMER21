@@ -243,7 +243,7 @@
 				</tr>
 				<tr>
 					<td align="right">Phone: </td>
-					<td><input type="number" name="code" value="<?php echo $code;?>" placeholder="code"> -
+					<td><input type="tel" name="code" value="<?php echo $code;?>" placeholder="code"> -
 						<input type="number" name="number" value="<?php echo $number;?>" placeholder="number">
 					</td>
 					<td><span><?php echo $err_code;?> - <?php echo $err_number;?></span></td>
